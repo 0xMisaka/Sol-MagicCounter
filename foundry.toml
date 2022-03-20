@@ -1,0 +1,8 @@
+[default]
+gas_reports = ["*"]
+libs = ['lib']
+out = 'out'
+remappings = ['ds-test/=lib/ds-test/src/']
+src = 'src'
+
+# See more config options https://github.com/gakonst/foundry/tree/master/config
