@@ -17,7 +17,7 @@ pragma solidity ^0.8.0;
 
 // For example: for the stream of numbers and operation:
 // [3,inc], [3,inc], [3,inc], [3,inc], [2, inc], [2, inc], [2, inc], [1, inc], [3, dec]
-// The representation would look like at below when the stream is processed.
+// The representation would look like below when the stream is processed.
 // ----------------------------------------------------------------
 // | Bucket {         |             | Bucket {         |
 // |  bucketCount: 1  |             |  bucketCount: 3  |
@@ -38,7 +38,6 @@ contract MagicCounter {
     }
 
     event LogInner(string log);
-    event LogInnerUint(uint256 log);
     event LogInner(string log, uint256 num);
 
     // track the bucketCount to Bucket Struct pointer
@@ -165,7 +164,7 @@ contract MagicCounter {
                 // if we increment, the new bucket should be after current bucket in the doubly linkedlist
                 _addBucketAfter(curBucket, countToBucket[newCount]);
             } else if (offset == -1) {
-                // if we decrement, the new bucket should be after the
+                // if we decrement, the new bucket should be after the previos bucket
                 _addBucketAfter(
                     countToBucket[curBucket.previous],
                     countToBucket[newCount]
@@ -210,7 +209,9 @@ contract MagicCounter {
         bucket.previous = 0;
     }
 
-    //  Belows are operation done to bucket
+    //  Below functions are operation done within the bucket
+
+    // See if key in in the bucket
     function _contains(Bucket storage bucket, uint256 key)
         internal
         view
