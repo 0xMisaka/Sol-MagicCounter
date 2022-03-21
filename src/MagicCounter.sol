@@ -1,4 +1,6 @@
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.10;
+
+import "./Counter.sol";
 
 //  MagicCounter supports the following operation all in O(1).
 //  increment the count of a *key*
@@ -30,7 +32,7 @@ pragma solidity ^0.8.0;
 // This is more efficient than the alternative which is to use Self-Balancing Binary Search Tree like RedBlack or AVL tree which
 // get max or min keys are O(1) but the insertion and deletion is O(log(n))
 
-contract MagicCounter {
+contract MagicCounter is Counter {
     struct Bucket {
         uint256 bucketCount;
         uint256 next;
@@ -62,7 +64,7 @@ contract MagicCounter {
         countToBucket[tailBucketCount].next = headBucketCount;
     }
 
-    function increment(uint256 key) external {
+    function increment(uint256 key) external override {
         if (keyToCount[key] > 0) {
             // if key already exist
             _changeKey(key, 1);
@@ -86,7 +88,7 @@ contract MagicCounter {
         }
     }
 
-    function decrement(uint256 key) external {
+    function decrement(uint256 key) external override {
         if (keyToCount[key] == 0) {
             // key doesn't exist
             return;
@@ -104,7 +106,12 @@ contract MagicCounter {
         }
     }
 
-    function getMaxKeys() public view returns (uint256[] memory maxKey) {
+    function getMaxKeys()
+        public
+        view
+        override
+        returns (uint256[] memory maxKey)
+    {
         if (
             countToBucket[headBucketCount].previous ==
             countToBucket[tailBucketCount].bucketCount
@@ -117,7 +124,12 @@ contract MagicCounter {
         }
     }
 
-    function getMinKeys() public view returns (uint256[] memory maxKey) {
+    function getMinKeys()
+        public
+        view
+        override
+        returns (uint256[] memory maxKey)
+    {
         if (
             countToBucket[headBucketCount].previous ==
             countToBucket[tailBucketCount].bucketCount
