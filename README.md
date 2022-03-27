@@ -18,7 +18,7 @@ For the LFU cache, you need to know the keys with min or max count at a certain 
 
 Let’s take a look at time complexity:
 
-For the non-technical readers: Time complexity measures the computational power, ranging from O(1), O(log(n), O(n), the lower the better.
+For the non-technical readers: Time complexity measures the computational power, ranging from O(1), O(log(n)), O(n), the lower the better.
 
 As you can see, MagicCounter outperforms other functions in every category.
 
